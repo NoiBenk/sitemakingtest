@@ -1,0 +1,140 @@
+/* status.css — status archive page + sidebar status widget */
+
+/* ── ARCHIVE LIST ────────────────────────── */
+#status-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.status-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  position: relative;
+}
+
+/* Vertical timeline line */
+.status-row::before {
+  content: '';
+  position: absolute;
+  left: 38px;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(140,185,230,0.5) 0%, rgba(140,185,230,0.15) 100%);
+  z-index: 0;
+}
+.status-row:last-child::before { bottom: 50%; }
+.status-row:first-child::before { top: 50%; }
+.status-row:first-child:last-child::before { display: none; }
+
+.status-mood {
+  flex-shrink: 0;
+  width: 78px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 14px 0 14px;
+  gap: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.mood-icon {
+  width: 22px; height: 22px;
+  stroke-width: 2;
+  color: var(--mood-color, #888);
+  background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(225,242,255,0.85) 100%);
+  border: 2px solid var(--mood-color, #aaa);
+  border-radius: 50%;
+  padding: 4px;
+  box-shadow: 0 1px 5px rgba(0,0,80,0.1), 0 0 0 3px rgba(255,255,255,0.8);
+}
+
+.mood-label {
+  font-size: 0.62rem;
+  font-weight: bold;
+  color: var(--mood-color, #888);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.status-body {
+  flex: 1;
+  padding: 12px 14px 12px 10px;
+  margin: 8px 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.88) 0%, rgba(220,240,255,0.78) 100%);
+  border: 1px solid rgba(160,200,235,0.7);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,80,0.06), inset 0 1px 0 #fff;
+  position: relative;
+  overflow: hidden;
+}
+.status-body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 45%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.45) 0%, transparent 100%);
+  border-radius: 8px 8px 0 0;
+  pointer-events: none;
+}
+
+/* little left arrow pointing at mood icon */
+.status-body::after {
+  content: '';
+  position: absolute;
+  left: -6px; top: 18px;
+  width: 10px; height: 10px;
+  background: rgba(240,248,255,0.95);
+  border-left: 1px solid rgba(160,200,235,0.7);
+  border-bottom: 1px solid rgba(160,200,235,0.7);
+  transform: rotate(45deg);
+}
+
+.status-text {
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: #111;
+  margin-bottom: 7px;
+}
+
+.status-meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+  color: #668;
+}
+.meta-icon { width: 10px; height: 10px; stroke-width: 2; }
+.meta-icon-gap { margin-left: 8px; }
+
+.empty-msg { color: #668; font-style: italic; font-size: 0.85rem; padding: 10px 0; }
+.error-msg { color: #a00; font-style: italic; font-size: 0.85rem; padding: 10px 0; }
+
+/* ── SIDEBAR STATUS WIDGET ───────────────── */
+/* Used in shell.html — shows only the latest status */
+.sidebar-status-text {
+  font-size: 0.75rem;
+  color: #112;
+  line-height: 1.5;
+  margin-bottom: 5px;
+}
+.sidebar-status-mood {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.sidebar-mood-icon {
+  width: 11px; height: 11px;
+  stroke-width: 2.5;
+}
+.sidebar-status-time {
+  font-size: 0.65rem;
+  color: #889;
+  margin-top: 3px;
+}

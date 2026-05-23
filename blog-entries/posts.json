@@ -1,0 +1,31 @@
+[
+  {
+    "id": "hello-world",
+    "title": "Hello World!",
+    "date": "2025-06-01",
+    "tags": ["personal", "update"],
+    "summary": "My very first blog post. Welcome to my site!",
+    "content": [
+      { "type": "paragraph", "text": "Hi everyone!! Welcome to my blog. I finally got this site up and running and I'm really happy with how it turned out :)" },
+      { "type": "paragraph", "text": "I built this whole thing myself (with a little help). It's got a Windows XP kind of vibe which I think is really cool. Shoutout to the old internet era." },
+      { "type": "heading", "text": "What to expect here" },
+      { "type": "paragraph", "text": "I'll be posting random stuff here whenever I feel like it. That could be game updates, music recommendations, things I found on the internet, or just random thoughts. No schedule, just vibes." },
+      { "type": "paragraph", "text": "Anyway, thanks for visiting. More posts coming soon!!" }
+    ]
+  },
+  {
+    "id": "kirby-superstar-ultra",
+    "title": "Why Kirby Super Star Ultra is the best game ever",
+    "date": "2025-06-10",
+    "tags": ["games", "kirby"],
+    "summary": "A totally unbiased review of the greatest Nintendo DS game of all time.",
+    "content": [
+      { "type": "paragraph", "text": "Okay so I might be a little biased here. But hear me out." },
+      { "type": "heading", "text": "It has like 10 games in one" },
+      { "type": "paragraph", "text": "Kirby Super Star Ultra is basically a collection of smaller games all packed into one cartridge. You've got Spring Breeze, Dyna Blade, The Great Cave Offensive, Milky Way Wishes... the list goes on. Each one feels completely different." },
+      { "type": "heading", "text": "The soundtrack goes crazy" },
+      { "type": "paragraph", "text": "I'm not joking, the remixed soundtrack in the Ultra version is SO good. Meta Knight's Revenge theme alone is enough reason to play the whole game." },
+      { "type": "paragraph", "text": "If you have a DS (or an emulator) and haven't played it, please do yourself a favour." }
+    ]
+  }
+]

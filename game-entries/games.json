@@ -1,0 +1,18 @@
+[
+  {
+    "id": "platformer-test",
+    "title": "Platformer Test",
+    "date": "2025-04-10",
+    "tags": ["platformer", "work in progress"],
+    "description": "A little platformer I've been messing around with. Nothing fancy yet but I'm pretty happy with how the movement feels!",
+    "scratchId": "104"
+  },
+  {
+    "id": "quiz-game",
+    "title": "Kirby Trivia Quiz",
+    "date": "2025-05-03",
+    "tags": ["quiz", "kirby"],
+    "description": "How well do you know Kirby Super Star Ultra? Test yourself with this quiz I made. There are 10 questions!",
+    "scratchId": "104"
+  }
+]

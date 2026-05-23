@@ -3,17 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="content.css">
+  <link rel="stylesheet" href="games.css">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
+
   <div>
     <div class="page-title">Games</div>
-    <div class="page-subtitle">Scratch games and stuff I made.</div>
+    <div class="page-subtitle">Stuff I made on Scratch — click any to play!</div>
   </div>
-  <section class="glass-panel">
-    <h2><i data-lucide="gamepad-2" class="section-icon"></i> Games</h2>
-    <p style="color:#668;font-style:italic;">Coming soon!</p>
-  </section>
-  <script>lucide.createIcons();</script>
+
+  <div id="games-grid"></div>
+
+  <script>
+    lucide.createIcons();
+
+    function formatDate(str) {
+      const [y, m, d] = str.split('-');
+      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return `${parseInt(d)} ${months[parseInt(m)-1]} ${y}`;
+    }
+
+    function scratchThumb(scratchId) {
+      return `https://uploads.scratch.mit.edu/get_image/project/${scratchId}_480x360.png`;
+    }
+
+    fetch('game-entries/games.json')
+      .then(r => r.json())
+      .then(games => {
+        const sorted = [...games].sort((a,b) => new Date(b.date) - new Date(a.date));
+        const grid = document.getElementById('games-grid');
+
+        if (sorted.length === 0) {
+          grid.innerHTML = '<p class="empty-msg">No games yet — check back soon!</p>';
+          return;
+        }
+
+        grid.innerHTML = `<div class="game-grid">${sorted.map(g => `
+          <a class="game-card" href="game-play.html?id=${encodeURIComponent(g.id)}" target="_top">
+            <div class="game-thumb-wrap">
+              <img class="game-thumb" src="${scratchThumb(g.scratchId)}" alt="${g.title}" loading="lazy"
+                onerror="this.style.display='none';this.parentElement.querySelector('.thumb-fallback').style.display='flex'">
+              <div class="thumb-fallback" style="display:none">
+                <i data-lucide="gamepad-2" class="fallback-icon"></i>
+              </div>
+              <div class="game-play-overlay">
+                <div class="game-play-btn">
+                  <i data-lucide="play" class="game-play-icon"></i>
+                </div>
+              </div>
+            </div>
+            <div class="game-info">
+              <div class="game-title">${g.title}</div>
+              <div class="game-tags">${g.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+              <div class="game-desc">${g.description}</div>
+              <div class="game-date"><i data-lucide="calendar" class="gd-icon"></i> ${formatDate(g.date)}</div>
+            </div>
+          </a>
+        `).join('')}</div>`;
+
+        lucide.createIcons();
+      })
+      .catch(() => {
+        document.getElementById('games-grid').innerHTML =
+          '<p class="error-msg">Couldn\'t load games. Make sure games.json is in the game-entries/ folder.</p>';
+      });
+  </script>
 </body>
 </html>

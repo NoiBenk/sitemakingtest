@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Watch — Noi's Site</title>
+  <link rel="icon" type="image/png" href="litten-profile.png">
+  <link rel="stylesheet" href="shell.css">
+  <link rel="stylesheet" href="video.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    .watch-area {
+      flex: 1;
+      padding: 22px 24px;
+      background: linear-gradient(180deg, rgba(235,248,255,0.6) 0%, rgba(225,242,255,0.4) 100%);
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-orb orb1"></div>
+  <div class="bg-orb orb2"></div>
+  <div class="bg-orb orb3"></div>
+
+  <div class="container">
+    <div class="window-header">
+      <span class="title-bar-left">
+        <img src="litten-profile.png" alt="Icon" class="title-icon">
+        Noi's Web Zone &mdash; Videos
+      </span>
+      <div class="buttons">
+        <div class="button btn-min"></div>
+        <div class="button btn-max"></div>
+        <div class="button btn-close"></div>
+      </div>
+    </div>
+
+    <div class="window-body">
+      <nav class="sidebar">
+        <div class="sidebar-label">Navigation</div>
+        <ul>
+          <li><a href="shell.html#home.html"><i data-lucide="house" class="nav-icon"></i> Home</a></li>
+          <li><a href="shell.html#blog.html"><i data-lucide="notebook-pen" class="nav-icon"></i> Blog</a></li>
+          <li><a href="shell.html#video.html" class="active"><i data-lucide="clapperboard" class="nav-icon"></i> Videos</a></li>
+          <li class="disabled"><i data-lucide="lock" class="nav-icon"></i> [coming soon]</li>
+        </ul>
+
+        <div class="widget clock-widget">
+          <div class="widget-title"><i data-lucide="clock" class="widget-icon"></i> Clock</div>
+          <div class="clock-time" id="clock">--:--:--</div>
+          <div class="clock-date" id="clock-date">---</div>
+        </div>
+
+        <div class="widget" id="sidebar-related">
+          <div class="widget-title"><i data-lucide="list-video" class="widget-icon"></i> Series</div>
+          <div id="related-list"><span style="color:#889;font-size:0.75rem;font-style:italic;">Loading...</span></div>
+        </div>
+
+        <div class="widget">
+          <div class="widget-title"><i data-lucide="share-2" class="widget-icon"></i> Find Me</div>
+          <div class="social-links">
+            <a href="https://www.youtube.com/@NoiBeniktont" class="social-link yt" target="_blank">
+              <svg class="social-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              <span>YouTube</span>
+            </a>
+            <a href="https://bsky.app/profile/noibenk.bsky.social" class="social-link bsky" target="_blank">
+              <svg class="social-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.204-.659-.299-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/></svg>
+              <span>Bluesky</span>
+            </a>
+            <a href="https://www.instagram.com/noibeniktont/" class="social-link ig" target="_blank">
+              <svg class="social-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+              <span>Instagram</span>
+            </a>
+            <a href="https://x.com/NoiBenk1234" class="social-link tw" target="_blank">
+              <svg class="social-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              <span>Twitter</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="watch-area" id="watch-container">
+        <div class="loading-msg">
+          <i data-lucide="loader" class="spin-icon"></i>
+          Loading video...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <span>Noi's Web Zone &mdash; Made with love in Germany</span>
+    <span id="footer-time"></span>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('clock').textContent = now.toLocaleTimeString('de-DE');
+      document.getElementById('clock-date').textContent = now.toLocaleDateString('de-DE', {weekday:'short', day:'2-digit', month:'short'});
+      document.getElementById('footer-time').textContent = now.toLocaleTimeString('de-DE');
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    function formatDate(str) {
+      const [y, m, d] = str.split('-');
+      const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      return `${parseInt(d)} ${months[parseInt(m)-1]} ${y}`;
+    }
+
+    function thumb(youtubeId) {
+      return `https://img.youtube.com/vi/${youtubeId}/mqdefault.jpg`;
+    }
+
+    const params = new URLSearchParams(location.search);
+    const videoId = params.get('id');
+
+    fetch('video-entries/videos.json')
+      .then(r => r.json())
+      .then(videos => {
+        const video = videos.find(v => v.id === videoId);
+
+        if (!video) {
+          document.getElementById('watch-container').innerHTML = '<p class="error-msg">Video not found.</p>';
+          return;
+        }
+
+        document.title = video.title + ' — Noi\'s Site';
+
+        // Render main watch area
+        document.getElementById('watch-container').innerHTML = `
+          <a href="shell.html#video.html" class="back-link">
+            <i data-lucide="arrow-left" class="back-icon"></i> Back to Videos
+          </a>
+          <div class="watch-panel">
+            <div class="embed-wrap">
+              <iframe
+                src="https://www.youtube.com/embed/${video.youtubeId}?rel=0"
+                title="${video.title}"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="watch-meta">
+              <div class="watch-meta-row">
+                <span class="watch-series"><i data-lucide="folder-open" class="wm-icon"></i> ${video.series || 'Miscellaneous'}</span>
+                <span class="watch-date"><i data-lucide="calendar" class="wm-icon"></i> ${formatDate(video.date)}</span>
+              </div>
+              <h1 class="watch-title">${video.title}</h1>
+              <hr class="watch-divider">
+              <p class="watch-description">${video.description}</p>
+              <a class="yt-link" href="https://www.youtube.com/watch?v=${video.youtubeId}" target="_blank">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="yt-link-icon"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                Watch on YouTube
+              </a>
+            </div>
+          </div>
+        `;
+
+        // Render series sidebar — other videos in same series
+        const seriesVideos = videos
+          .filter(v => v.series === video.series && v.id !== video.id)
+          .sort((a,b) => new Date(a.date) - new Date(b.date));
+
+        const relatedList = document.getElementById('related-list');
+        if (seriesVideos.length === 0) {
+          relatedList.innerHTML = '<span style="color:#889;font-size:0.75rem;font-style:italic;">No other videos in this series.</span>';
+        } else {
+          relatedList.innerHTML = seriesVideos.map(v => `
+            <a href="video-watch.html?id=${encodeURIComponent(v.id)}" class="related-item ${v.id === videoId ? 'related-active' : ''}">
+              <img src="${thumb(v.youtubeId)}" class="related-thumb" alt="${v.title}">
+              <span class="related-title">${v.title}</span>
+            </a>
+          `).join('');
+        }
+
+        lucide.createIcons();
+      })
+      .catch(() => {
+        document.getElementById('watch-container').innerHTML = '<p class="error-msg">Couldn\'t load video data.</p>';
+      });
+  </script>
+</body>
+</html>

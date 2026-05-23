@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="content.css">
+  <link rel="stylesheet" href="blog.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+  <div>
+    <div class="page-title">Blog</div>
+    <div class="page-subtitle">Thoughts, updates, random stuff.</div>
+  </div>
+
+  <div id="blog-list">
+    <div class="loading-msg">
+      <i data-lucide="loader" class="spin-icon"></i>
+      Loading posts...
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    function formatDate(str) {
+      const [y, m, d] = str.split('-');
+      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return `${parseInt(d)} ${months[parseInt(m)-1]} ${y}`;
+    }
+
+    fetch('blog-entries/posts.json')
+      .then(r => r.json())
+      .then(posts => {
+        const sorted = [...posts].sort((a,b) => new Date(b.date) - new Date(a.date));
+        const container = document.getElementById('blog-list');
+
+        if (sorted.length === 0) {
+          container.innerHTML = '<p class="empty-msg">No posts yet — check back soon!</p>';
+          return;
+        }
+
+        container.innerHTML = sorted.map((post, i) => `
+          <a class="post-card" href="blog-post.html?id=${encodeURIComponent(post.id)}" target="_top">
+            <div class="post-card-inner">
+              <div class="post-meta">
+                <span class="post-date"><i data-lucide="calendar" class="meta-icon"></i> ${formatDate(post.date)}</span>
+                <span class="post-tags">${post.tags.map(t => `<span class="tag">${t}</span>`).join('')}</span>
+              </div>
+              <div class="post-title">${post.title}</div>
+              <div class="post-summary">${post.summary}</div>
+              <div class="post-readmore">Read more <i data-lucide="arrow-right" class="read-icon"></i></div>
+            </div>
+          </a>
+        `).join('');
+
+        lucide.createIcons();
+      })
+      .catch(() => {
+        document.getElementById('blog-list').innerHTML =
+          '<p class="error-msg">Couldn\'t load posts. Make sure posts.json is in the blog-entries/ folder.</p>';
+      });
+  </script>
+</body>
+</html>

@@ -8,11 +8,11 @@
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
- 
+
   <div class="bg-orb orb1"></div>
   <div class="bg-orb orb2"></div>
   <div class="bg-orb orb3"></div>
- 
+
   <div class="container">
     <div class="window-header">
       <span class="title-bar-left">
@@ -25,25 +25,19 @@
         <div class="button btn-close" title="Close"></div>
       </div>
     </div>
- 
+
     <div class="window-body">
       <nav class="sidebar">
- 
+
         <!-- Profile block -->
         <div class="profile-block">
+          <div class="profile-name">Noi</div>
           <div class="profile-avatar-wrap">
             <img src="litten-profile.png" alt="Noi's profile pic" class="profile-avatar">
           </div>
-          <div class="profile-name">Noi</div>
-          <!-- Latest status -->
-          <div class="widget profile-status-widget" id="sidebar-status">
-            <div class="widget-title"><i data-lucide="radio" class="widget-icon"></i> Status</div>
-            <div id="sidebar-status-inner">
-              <span style="color:#889;font-size:0.72rem;font-style:italic;">Loading...</span>
-            </div>
-          </div>
+          <div class="profile-status-line" id="sidebar-status-line">...</div>
         </div>
- 
+
         <div class="sidebar-label">Navigation</div>
         <ul id="nav-links">
           <li><a href="#" data-page="home.html"><i data-lucide="house" class="nav-icon"></i> Home</a></li>
@@ -53,14 +47,14 @@
           <li><a href="#" data-page="games.html"><i data-lucide="gamepad-2" class="nav-icon"></i> Games</a></li>
           <li class="disabled"><i data-lucide="lock" class="nav-icon"></i> [coming soon]</li>
         </ul>
- 
+
         <!-- Clock widget -->
         <div class="widget clock-widget">
           <div class="widget-title"><i data-lucide="clock" class="widget-icon"></i> Clock</div>
           <div class="clock-time" id="clock">--:--:--</div>
           <div class="clock-date" id="clock-date">---</div>
         </div>
- 
+
         <!-- Social links widget -->
         <div class="widget socials-widget">
           <div class="widget-title"><i data-lucide="share-2" class="widget-icon"></i> Find Me</div>
@@ -84,19 +78,19 @@
           </div>
         </div>
       </nav>
- 
+
       <iframe id="content-frame" src="home.html" title="Page content"></iframe>
     </div>
   </div>
- 
+
   <div class="footer-bar">
     <span>Noi's Web Zone &mdash; Made with love in Germany</span>
     <span id="footer-time"></span>
   </div>
- 
+
   <script>
     lucide.createIcons();
- 
+
     // Clock
     function updateClock() {
       const now = new Date();
@@ -106,25 +100,25 @@
     }
     updateClock();
     setInterval(updateClock, 1000);
- 
+
     // Nav
     const frame = document.getElementById('content-frame');
     const navLinks = document.querySelectorAll('#nav-links a[data-page]');
- 
+
     function navigate(page, linkEl) {
       frame.src = page;
       navLinks.forEach(l => l.classList.remove('active'));
       if (linkEl) linkEl.classList.add('active');
       history.pushState({page}, '', '#' + page);
     }
- 
+
     navLinks.forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
         navigate(link.dataset.page, link);
       });
     });
- 
+
     function loadFromHash() {
       const hash = location.hash.replace('#', '');
       const match = [...navLinks].find(l => l.dataset.page === hash);
@@ -137,7 +131,7 @@
     }
     loadFromHash();
     window.addEventListener('popstate', loadFromHash);
- 
+
     // Sidebar latest status
     const MOODS = {
       happy:   { icon: 'smile',      color: '#e8a000' },
@@ -149,27 +143,19 @@
       anxious: { icon: 'activity',   color: '#bb6600' },
       silly:   { icon: 'star',       color: '#dd44aa' },
     };
- 
+
     fetch('status-entries/statuses.json')
       .then(r => r.json())
       .then(statuses => {
-        if (!statuses.length) return;
+        const el = document.getElementById('sidebar-status-line');
+        if (!statuses.length) { el.textContent = 'No status yet.'; return; }
         const latest = [...statuses].sort((a,b) => new Date(b.date) - new Date(a.date))[0];
-        const mood = MOODS[latest.mood] || { icon: 'circle', color: '#888' };
-        const time = new Date(latest.date).toLocaleDateString('de-DE', {day:'2-digit', month:'short', year:'numeric'});
-        document.getElementById('sidebar-status-inner').innerHTML = `
-          <p class="sidebar-status-text">${latest.text}</p>
-          <div class="sidebar-status-mood" style="color: ${mood.color}">
-            <i data-lucide="${mood.icon}" class="sidebar-mood-icon"></i>
-            <span>${latest.mood}</span>
-          </div>
-          <div class="sidebar-status-time">${time}</div>
-        `;
-        lucide.createIcons();
+        const mood = MOODS[latest.mood] || { color: '#888' };
+        el.innerHTML = `<span class="profile-status-mood-dot" style="background:${mood.color}"></span>${latest.text}`;
+        el.title = latest.mood + ' — ' + new Date(latest.date).toLocaleDateString('de-DE');
       })
       .catch(() => {
-        document.getElementById('sidebar-status-inner').innerHTML =
-          '<span style="color:#889;font-size:0.72rem;font-style:italic;">No status yet.</span>';
+        document.getElementById('sidebar-status-line').textContent = '...';
       });
   </script>
 </body>

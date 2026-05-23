@@ -1,0 +1,38 @@
+[
+  {
+    "id": "first-video",
+    "title": "My First Video!",
+    "date": "2025-05-01",
+    "youtubeId": "dQw4w9WgXcQ",
+    "embedUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ?si=Q6S-iljWWPw30n8P",
+    "series": "Miscellaneous",
+    "description": "My very first upload! I wasn't sure what to make so I just hit record and figured it out as I went. Hope you enjoy :)"
+  },
+  {
+    "id": "kirby-playthrough-1",
+    "title": "Kirby Super Star Ultra — Part 1",
+    "date": "2025-05-15",
+    "youtubeId": "dQw4w9WgXcQ",
+    "embedUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ?si=Q6S-iljWWPw30n8P",
+    "series": "Kirby Super Star Ultra Playthrough",
+    "description": "Starting my playthrough of my all-time favourite game! We kick things off with Spring Breeze. It's short but it's a perfect intro to the Kirby vibes."
+  },
+  {
+    "id": "kirby-playthrough-2",
+    "title": "Kirby Super Star Ultra — Part 2",
+    "date": "2025-05-22",
+    "youtubeId": "dQw4w9WgXcQ",
+    "embedUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ?si=Q6S-iljWWPw30n8P",
+    "series": "Kirby Super Star Ultra Playthrough",
+    "description": "Dyna Blade time!! This one took me way longer than I expected ngl. The boss fight at the end is really fun though."
+  },
+  {
+    "id": "random-thoughts",
+    "title": "Random Thoughts at Midnight",
+    "date": "2025-06-03",
+    "youtubeId": "dQw4w9WgXcQ",
+    "embedUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ?si=Q6S-iljWWPw30n8P",
+    "series": "Miscellaneous",
+    "description": "Just me rambling about stuff. No real topic. I recorded this at like 1am and honestly I have no idea what I was thinking but here it is."
+  }
+]

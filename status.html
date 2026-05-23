@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="content.css">
+  <link rel="stylesheet" href="status.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+  <div>
+    <div class="page-title">Status</div>
+    <div class="page-subtitle">What's on my mind — newest first.</div>
+  </div>
+
+  <div id="status-list"></div>
+
+  <script>
+    lucide.createIcons();
+
+    const MOODS = {
+      happy:     { label: 'happy',     icon: 'smile',        color: '#e8a000' },
+      excited:   { label: 'excited',   icon: 'zap',          color: '#9933cc' },
+      tired:     { label: 'tired',     icon: 'moon',         color: '#4477aa' },
+      sad:       { label: 'sad',       icon: 'cloud-rain',   color: '#5588bb' },
+      angry:     { label: 'angry',     icon: 'flame',        color: '#cc3300' },
+      chill:     { label: 'chill',     icon: 'coffee',       color: '#338855' },
+      anxious:   { label: 'anxious',   icon: 'activity',     color: '#bb6600' },
+      silly:     { label: 'silly',     icon: 'star',         color: '#dd44aa' },
+    };
+
+    function formatDateTime(str) {
+      const d = new Date(str);
+      const date = d.toLocaleDateString('de-DE', { day: '2-digit', month: 'short', year: 'numeric' });
+      const time = d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+      return { date, time };
+    }
+
+    fetch('status-entries/statuses.json')
+      .then(r => r.json())
+      .then(statuses => {
+        const sorted = [...statuses].sort((a,b) => new Date(b.date) - new Date(a.date));
+        const container = document.getElementById('status-list');
+
+        if (sorted.length === 0) {
+          container.innerHTML = '<p class="empty-msg">No updates yet!</p>';
+          return;
+        }
+
+        container.innerHTML = sorted.map(s => {
+          const mood = MOODS[s.mood] || { label: s.mood, icon: 'circle', color: '#888' };
+          const { date, time } = formatDateTime(s.date);
+          return `
+            <div class="status-row">
+              <div class="status-mood" style="--mood-color: ${mood.color}">
+                <i data-lucide="${mood.icon}" class="mood-icon"></i>
+                <span class="mood-label">${mood.label}</span>
+              </div>
+              <div class="status-body">
+                <p class="status-text">${s.text}</p>
+                <div class="status-meta">
+                  <i data-lucide="calendar" class="meta-icon"></i> ${date}
+                  <i data-lucide="clock" class="meta-icon meta-icon-gap"></i> ${time}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        lucide.createIcons();
+      })
+      .catch(() => {
+        document.getElementById('status-list').innerHTML =
+          '<p class="error-msg">Couldn\'t load statuses. Make sure statuses.json is in the status-entries/ folder.</p>';
+      });
+  </script>
+</body>
+</html>

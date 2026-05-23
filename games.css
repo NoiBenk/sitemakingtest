@@ -1,0 +1,153 @@
+/* games.css — styles for games.html (grid) and game-play.html (play page) */
+
+.empty-msg, .error-msg { color: #668; font-style: italic; font-size: 0.85rem; padding: 10px 0; }
+.error-msg { color: #a00; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin-icon { animation: spin 1s linear infinite; width: 14px; height: 14px; }
+.loading-msg { display: flex; align-items: center; gap: 8px; color: #668; font-style: italic; font-size: 0.85rem; padding: 20px 0; }
+
+.back-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 0.78rem; font-weight: bold; color: #0044cc;
+  text-decoration: none; margin-bottom: 16px; padding: 5px 10px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(210,235,255,0.75) 100%);
+  border: 1px solid rgba(140,190,230,0.6); border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,80,0.08), inset 0 1px 0 rgba(255,255,255,0.9);
+  transition: filter 0.1s, transform 0.1s;
+}
+.back-link:hover { filter: brightness(1.06); transform: translateX(-2px); text-decoration: none; color: #0044cc; }
+.back-icon { width: 12px; height: 12px; stroke-width: 2.5; }
+
+/* ── GAMES GRID ──────────────────────────── */
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.game-card {
+  display: flex; flex-direction: column;
+  text-decoration: none; color: inherit;
+  background: linear-gradient(180deg, rgba(255,255,255,0.88) 0%, rgba(220,240,255,0.78) 100%);
+  border: 1px solid rgba(160,200,235,0.7);
+  border-radius: 8px; overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,80,0.07), inset 0 1px 0 #fff;
+  transition: transform 0.13s, box-shadow 0.13s, border-color 0.13s;
+  position: relative;
+}
+.game-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 42%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+  pointer-events: none; z-index: 1;
+}
+.game-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,100,0.14), inset 0 1px 0 #fff;
+  border-color: rgba(90,155,225,0.85);
+  text-decoration: none;
+}
+
+.game-thumb-wrap {
+  position: relative;
+  width: 100%; aspect-ratio: 4 / 3;
+  background: #1e1e2e; overflow: hidden;
+}
+.game-thumb {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.2s, filter 0.2s;
+}
+.game-card:hover .game-thumb { transform: scale(1.03); filter: brightness(0.75); }
+
+.thumb-fallback {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #1a2a4a 0%, #0d1a33 100%);
+}
+.fallback-icon { width: 36px; height: 36px; color: rgba(150,200,255,0.4); stroke-width: 1.5; }
+
+.game-play-overlay {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.15s;
+}
+.game-card:hover .game-play-overlay { opacity: 1; }
+.game-play-btn {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,0.92);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+}
+.game-play-icon { width: 18px; height: 18px; color: #5500cc; stroke-width: 2; margin-left: 2px; }
+
+.game-info { padding: 9px 11px 11px; display: flex; flex-direction: column; gap: 4px; }
+.game-title {
+  font-size: 0.88rem; font-weight: bold; color: #001888; line-height: 1.3;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+}
+.game-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag {
+  font-size: 0.66rem;
+  background: linear-gradient(180deg, rgba(190,220,255,0.9) 0%, rgba(160,205,250,0.8) 100%);
+  border: 1px solid rgba(120,170,220,0.5); border-radius: 3px;
+  padding: 1px 6px; color: #003388; font-weight: bold; letter-spacing: 0.03em;
+}
+.game-desc {
+  font-size: 0.75rem; color: #334; line-height: 1.45;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.game-date {
+  font-size: 0.7rem; color: #558;
+  display: flex; align-items: center; gap: 3px; margin-top: 2px;
+}
+.gd-icon { width: 10px; height: 10px; stroke-width: 2; }
+
+/* ── PLAY PAGE ───────────────────────────── */
+.play-panel {
+  background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(225,242,255,0.8) 100%);
+  border: 1px solid rgba(160,200,235,0.7);
+  border-radius: 8px; overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,80,0.08), inset 0 1px 0 #fff;
+}
+
+/* Scratch embed is 480×360, so we lock the aspect ratio */
+.scratch-wrap {
+  position: relative;
+  width: 100%; aspect-ratio: 4 / 3;
+  background: #1e1e2e;
+}
+.scratch-wrap iframe {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border: none; display: block;
+}
+
+.play-meta { padding: 13px 18px 17px; display: flex; flex-direction: column; gap: 7px; }
+.play-meta-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.play-date { font-size: 0.75rem; color: #446; display: flex; align-items: center; gap: 4px; }
+.play-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.wm-icon { width: 11px; height: 11px; stroke-width: 2; }
+
+.play-title {
+  font-size: 1.25rem; font-weight: bold; color: #001888;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.8); line-height: 1.25;
+}
+.play-divider { border: none; border-top: 1px solid rgba(120,170,220,0.4); margin: 2px 0; }
+.play-description { font-size: 0.86rem; color: #111; line-height: 1.7; }
+
+.scratch-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 13px; margin-top: 4px;
+  background: linear-gradient(180deg, #cc88ff 0%, #8833cc 100%);
+  color: #fff; font-size: 0.82rem; font-weight: bold;
+  text-decoration: none; border-radius: 5px;
+  border: 1px solid rgba(0,0,0,0.15);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.25);
+  transition: filter 0.1s, transform 0.1s;
+  align-self: flex-start; position: relative; overflow: hidden;
+}
+.scratch-link::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 50%;
+  background: rgba(255,255,255,0.2); border-radius: 5px 5px 0 0;
+}
+.scratch-link:hover { filter: brightness(1.1); transform: translateY(-1px); text-decoration: none; color: #fff; }
+.scratch-link-icon { width: 13px; height: 13px; stroke-width: 2.5; position: relative; }
